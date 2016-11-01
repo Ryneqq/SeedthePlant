@@ -13,17 +13,22 @@ public class PhotoControl : MonoBehaviour {
     private float delta = 0.95f;
     private bool reactionFailed = false;
 
+    void Start()
+    {
+        photoCanvas.GetComponent<Canvas>().enabled = false;
+    }
 	void Update ()
     {
 	    if (!triggered && Variables.mode == "photo")
         {
-            //startPhoto();
+            startPhoto();
             Debug.Log("wchodze");
             triggered = true; 
         }
         if(Variables.mode == "photo")
         {
             photoBarControl();
+            Debug.Log("fotosynteza trwa");
         }
         if(triggered && reactionFailed)
         {
@@ -34,6 +39,7 @@ public class PhotoControl : MonoBehaviour {
     private void startPhoto()
     {
         photoCanvas.GetComponent<Canvas>().enabled = true;
+        ReactionTime();
     }
     private void endPhoto()
     {
@@ -55,7 +61,7 @@ public class PhotoControl : MonoBehaviour {
         {
             timeLeft = time / reactionTime;
         }
-        //photoBar.GetComponent<Image>().transform.localScale = new Vector3(timeLeft, 1, 1);
+        photoBar.GetComponent<Image>().transform.localScale = new Vector3(timeLeft, 1, 1);
     }
     public void ReactionTime()
     {

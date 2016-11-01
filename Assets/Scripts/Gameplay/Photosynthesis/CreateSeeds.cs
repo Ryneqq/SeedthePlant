@@ -25,17 +25,17 @@ public class CreateSeeds : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        isDestroyed();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        time += Time.deltaTime;
         if (Variables.mode == "photo" && destroyed)// && czy zostalo zniszczone (zamiast time)
         {
             string whichSeed = RandomSeed();
             CreateSeed(whichSeed);
+            gameObject.GetComponent<PhotoControl>().ReactionTime();
             destroyed = false;
         }
 	}
