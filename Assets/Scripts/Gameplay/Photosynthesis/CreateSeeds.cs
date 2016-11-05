@@ -2,6 +2,13 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <CreateSeeds>
+/// Komponent znajduje sie na kamerze, odpowiedzialny za spawnowanie seedow
+/// OUT: PhotoControl - zmniejsz czas reakcji
+/// IN:  SeedControl - zespawnuj nowego Seeda.
+/// 
+/// skrypt korzysta ze zmiennych globalnych:  Variables.
+/// </CreateSeeds>
 public class CreateSeeds : MonoBehaviour {
     //creating seeds
     private Image temp;
@@ -21,24 +28,26 @@ public class CreateSeeds : MonoBehaviour {
     //===================
 
     private float time = 0.0f;
-    private bool destroyed;
+    private bool destroyed; //sluzy do sprawdzania czy Seed zostal zniszczony
 
-	// Use this for initialization
+	// Na poczatku nasionko zostalo zniszczone
 	void Start () {
         isDestroyed();
 	}
 	
-	// Update is called once per frame
+	// w update'cie sprawdzamy czy sa odpowiednie warunki do wykonywania skryptu
 	void Update ()
     {
-        if (Variables.mode == "photo" && destroyed)// && czy zostalo zniszczone (zamiast time)
+        if (Variables.mode == "photo" && destroyed)
         {
             string whichSeed = RandomSeed();
             CreateSeed(whichSeed);
-            gameObject.GetComponent<PhotoControl>().ReactionTime();
-            destroyed = false;
+            gameObject.GetComponent<PhotoControl>().ReactionTime(); //wywolanie obliczenia czasu reakcji
+            destroyed = false; // nasionko nie jest zniszczone, dopiero co je stworzylismy.
         }
 	}
+    // Funkcja losujaca nasionko
+    // zwraca string z nazwa nasionka
     private string RandomSeed()
     {
         // Oblicznae tu prawdopodobienstwo jest funkcja dwoch zmiennych - zalezy od numeru rundy i liczby seedow zeswpawnowanych w danej rundzie
@@ -51,20 +60,21 @@ public class CreateSeeds : MonoBehaviour {
         {
             return "ancient";
         }
-        if (probability <= probabilityPlagued && probability > probabilityAncient)
+        else if (probability <= probabilityPlagued && probability > probabilityAncient)
         {
             return "plagued";
         }
-        if (probability <= probabilityRotten && probability > probabilityPlagued)
+        else if (probability <= probabilityRotten && probability > probabilityPlagued)
         {
             return "rotten";
         }
-        if (probability > probabilityRotten)
+        else if (probability > probabilityRotten)
         {
             return "normal";
         }
         return "null";
     }
+    // funkcja spawnuje seedy na podstawie otrzymanego stringa
     private void CreateSeed(string Seed)
     {
         if (Seed == "ancient")
@@ -72,23 +82,24 @@ public class CreateSeeds : MonoBehaviour {
             temp = (Image)Instantiate(Ancient, new Vector2(0.0f,0.0f), Quaternion.identity);
             temp.transform.SetParent(photoCanvas.transform, false);
         }
-        if (Seed == "plagued")
+        else if (Seed == "plagued")
         {
             temp = (Image)Instantiate(Plagued, new Vector2(0.0f, 0.0f), Quaternion.identity);
             temp.transform.SetParent(photoCanvas.transform, false);
         }
-        if (Seed == "rotten")
+         else if (Seed == "rotten")
         {
             temp = (Image)Instantiate(Rotten, new Vector2(0.0f, 0.0f), Quaternion.identity);
             temp.transform.SetParent(photoCanvas.transform, false);
         }
-        if (Seed == "normal")
+        else if (Seed == "normal")
         {
             temp = (Image)Instantiate(Normal, new Vector2(0.0f, 0.0f), Quaternion.identity);
             temp.transform.SetParent(photoCanvas.transform, false);
         }
         ++noSeeds;
     }
+    //funkcja ktora zmienia prywatnego boola - dla bezpieczenstwa.
     public void isDestroyed()
     {
         destroyed = true;

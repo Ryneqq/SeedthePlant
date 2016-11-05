@@ -12,6 +12,9 @@ public class Loading : MonoBehaviour {
         Variables.SunGainValue = 15.0f/100.0f;
         Variables.WaterGainValue = 1.0f/100.0f;
         Variables.roundNumber = 1;
+        // Clearing noSeeds
+        Variables.noAncient = 0;
+        Variables.noNormal = 0;
 	}
 
 }

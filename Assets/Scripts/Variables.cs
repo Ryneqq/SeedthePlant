@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+/// <Variables>
+/// Obiekt ktory trzyma zmienne globalne.
+/// </Variables>
 public class Variables : MonoBehaviour {
 
     //general
@@ -33,6 +35,8 @@ public class Variables : MonoBehaviour {
     public static float WaterGainValue;
     //photo variables
     public static int roundNumber;
-
+    //currency
+    public static int noNormal;
+    public static int noAncient;
 
 }
