@@ -30,12 +30,12 @@ public class WaterControl : MonoBehaviour {
     {
         Bar.GainWater();
         // Poisoned Water
-       /* if (GeneralVariables.PoisonedWater)
+       if (Variables.poisonedWater)
         {
-            bar.GainCO2(-1);
-            bar.GainLight(-1);
-            bar.GainSun(-1);
-        }*/ //Plaga
+            Bar.GainO2(-0.01f);
+            Bar.GainCO2(-0.01f);
+            Bar.GainSun(-0.01f);
+        }
 
     }
 }

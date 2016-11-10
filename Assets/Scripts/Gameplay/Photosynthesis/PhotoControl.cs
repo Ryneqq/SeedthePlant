@@ -62,6 +62,7 @@ public class PhotoControl : MonoBehaviour {
             Destroy(posionedGas.gameObject);
         }
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        gameObject.GetComponent<PlagueControl>().ClearPlagues(); // czyscimy plagi, zeby sie nie okazalo ze po zakonczeniu fotosyntezy pojawia sie plaga.
         photoCanvas.gameObject.SetActive(true);
         reactionTime = 10.0f; // ustawiam wartosc startowa kazdej photosyntezy
         time = reactionTime;
@@ -77,6 +78,7 @@ public class PhotoControl : MonoBehaviour {
         Variables.CO2Counter = 0;
         Variables.pGasCounter = 0;
         ++Variables.roundNumber; // numer rundy
+        Debug.Log(Variables.full);
     }
     // funkcja obsluguje bar odliczajacy dany czas na reakcje gracza
     private void PhotoBarControl()

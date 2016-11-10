@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <BarControl>
+/// Skrypt odpowiada za ustawianie barow.
+/// </BarControl>
 public class BarControl : MonoBehaviour {
     //Bars managment
     private float StartValue = 40.0f;
@@ -13,15 +16,15 @@ public class BarControl : MonoBehaviour {
     private float SunValue;
     public Image WaterBar;
     private float WaterValue;
-    private float dif = -0.05f;
+    private float dif = -0.05f; //prywatna zmienna - zapamietana w niej jest pierwsza wartosc differential.
     public float difference;
     //Photo checkin
     private bool O2photo;
     private bool CO2photo;
     private bool Sunphoto;
     private bool Waterphoto;
-    private float tTreshold = 1.0f;
-    private float lTreshold = 0.5f;
+    private float tTreshold = 1.0f; //max value for photo
+    private float lTreshold = 0.5f; //min value for photo
 
 	void Start ()
     {
@@ -53,7 +56,6 @@ public class BarControl : MonoBehaviour {
         if (Variables.mode == "normal" && O2photo && CO2photo && Sunphoto && Waterphoto)
         {
             //rozpocznij photosynteze
-            Debug.Log("Photosynthesis!!!");
             Variables.mode = "photo";
 
             SetO2(StartValue); SetCO2(StartValue);
@@ -83,10 +85,15 @@ public class BarControl : MonoBehaviour {
             O2Value = 1.0f;
         O2Bar.GetComponent<Image> ().transform.localScale = new Vector3(O2Value, 1, 1);
     }
-    public void SetO2(float Value)
+    public void GainO2(float value)
     {
-        Value = Value / 100.0f;
-        O2Value = Value;
+        float tempValue = O2Value + value;
+        SetO2(tempValue*100.0f);
+    }
+    public void SetO2(float value)
+    {
+        value = value / 100.0f;
+        O2Value = value;
         if (O2Value >= 1.0f)
             O2Value = 1.0f;
         if (O2Value <= 0.0f)
@@ -114,6 +121,11 @@ public class BarControl : MonoBehaviour {
         if (CO2Value >= 1.0f)
             CO2Value = 1.0f;
         CO2Bar.GetComponent<Image>().transform.localScale = new Vector3(CO2Value, 1, 1);
+    }
+    public void GainCO2(float value)
+    {
+        float tempValue = CO2Value + value;
+        SetCO2(tempValue * 100.0f);
     }
     public void SetCO2(float Value)
     {
@@ -146,6 +158,12 @@ public class BarControl : MonoBehaviour {
         if (SunValue >= 1.0f)
             SunValue = 1.0f;
         SunBar.GetComponent<Image>().transform.localScale = new Vector3(SunValue, 1, 1);
+
+    }
+    public void GainSun(float value)
+    {
+        float tempValue = SunValue + value;
+        SetSun(tempValue * 100.0f);
 
     }
     public void SetSun(float Value)
@@ -205,7 +223,7 @@ public class BarControl : MonoBehaviour {
     }
     public void SetDifferential()
     {
-        // różnica o ktora pomniejszaja sie bary co klatke - funkcja zmiennej roundNumber 
+        // różnica o ktora pomniejszaja sie bary co klatke - zalezy od zmiennej roundNumber 
         //difference = dif * (1 + (Variables.roundNumber - 1) / Variables.roundNumber);
         difference = 0.0f;
     }

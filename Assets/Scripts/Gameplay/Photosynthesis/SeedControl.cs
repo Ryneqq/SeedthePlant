@@ -16,11 +16,13 @@ public class SeedControl : MonoBehaviour {
     private CreateSeeds seed;
     private int saveNormal;
     private int saveAncient;
+    private NumbersControl nCon;
 
 	void Start () { //zapamietuje ilosc nasionek zdobytych przed gra.
         seed = GameObject.Find("Main Camera").GetComponent<CreateSeeds>();
         saveNormal = PlayerPrefs.GetInt("noNormal");
         saveAncient = PlayerPrefs.GetInt("noAncient");
+        nCon = gameObject.GetComponentInParent<NumbersControl>();
 	}
 	
     public void ManageSeed(string collider)
@@ -31,10 +33,12 @@ public class SeedControl : MonoBehaviour {
             if (gameObject.CompareTag("Normal")) // jezeli byl to normalny
             {
                 NormalCounter(); // to dolicz go do  pozostalych
+                nCon.SetNumber("Normal");
             }
             else if (gameObject.CompareTag("Ancient"))  // bla bla bla i tak dalej
             {
                 AncientCounter();
+                nCon.SetNumber("Ancient");
             }
             else if (gameObject.CompareTag("Rotten")) //po prostu konczymy fotosynteze
             {
@@ -104,7 +108,6 @@ public class SeedControl : MonoBehaviour {
         }
         else if (collider == "Destroyer")
         {
-            Debug.Log("DUPADADADADA");
             GameObject.Find(collider).GetComponent<Transform>().localScale = new Vector2(1.0f, 1.0f);
             swipedObject.colliding = false;
             swipedObject.whichCollider = "none";
