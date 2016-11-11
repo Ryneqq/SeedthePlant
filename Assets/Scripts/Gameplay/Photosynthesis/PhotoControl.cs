@@ -63,6 +63,7 @@ public class PhotoControl : MonoBehaviour {
         }
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         gameObject.GetComponent<PlagueControl>().ClearPlagues(); // czyscimy plagi, zeby sie nie okazalo ze po zakonczeniu fotosyntezy pojawia sie plaga.
+        photoCanvas.GetComponent<NumbersControl>().SetNumber(); // aktualizujemy wartosci seedow
         photoCanvas.gameObject.SetActive(true);
         reactionTime = 10.0f; // ustawiam wartosc startowa kazdej photosyntezy
         time = reactionTime;

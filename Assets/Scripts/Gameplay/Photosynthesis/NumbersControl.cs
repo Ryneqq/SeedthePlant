@@ -16,6 +16,11 @@ public class NumbersControl : MonoBehaviour {
         if (ancientText)
             SetNumber("Ancient");
     }
+    public void SetNumber()
+    {
+        normalText.text = Variables.noNormal.ToString();
+        ancientText.text = Variables.noAncient.ToString();
+    }
 
     public void SetNumber(string Type)
     {

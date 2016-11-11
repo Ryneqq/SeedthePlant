@@ -15,12 +15,12 @@ public class Destroyer : MonoBehaviour
     {
         scale = gameObject.GetComponent<Image>().transform;
     }
-    void OnCollisionEnter2D(Collision2D col)
+    public void OnCollisionEnter2D(Collision2D col)
     {
         scale.localScale = new Vector2(1.2f, 1.2f);
         swipeSeed = col.gameObject.GetComponent<SwipeDetector>();
     }
-    void OnCollisionStay2D(Collision2D col)
+    public void OnCollisionStay2D(Collision2D col)
     {
         if (scale.localScale.x < 1.1f && scale.localScale.y < 1.1f)
             scale.localScale = new Vector2(1.2f, 1.2f);
@@ -29,7 +29,7 @@ public class Destroyer : MonoBehaviour
         if (swipeSeed.whichCollider != "Destroyer")
             swipeSeed.whichCollider = "Destroyer";
     }
-    void OnCollisionExit2D(Collision2D col)
+    public void OnCollisionExit2D(Collision2D col)
     {
         scale.localScale = new Vector2(1.0f, 1.0f);
         swipeSeed.colliding = false;

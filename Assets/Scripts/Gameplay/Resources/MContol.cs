@@ -72,22 +72,30 @@ public class MContol : MonoBehaviour {
             }
             if (!gameObject.GetComponent<Image>().enabled)
             {
-                if (gameObject.CompareTag("O2"))
-                {
-                    --Variables.O2Counter;
-                }
-                if (gameObject.CompareTag("CO2"))
-                {
-                    --Variables.CO2Counter;
-                }
-                if (gameObject.CompareTag("PG"))
-                {
-                    --Variables.pGasCounter;
-                }
- 
-                Destroy(this.gameObject); // obiekt przekroczyl dlugosc swojego zycia
-                
+                DestroyGases();
             }
         }
+        else
+        {
+            DestroyGases();
+        }
+    }
+    
+    private void DestroyGases()
+    {
+        if (gameObject.CompareTag("O2"))
+        {
+            --Variables.O2Counter;
+        }
+        if (gameObject.CompareTag("CO2"))
+        {
+            --Variables.CO2Counter;
+        }
+        if (gameObject.CompareTag("PG"))
+        {
+            --Variables.pGasCounter;
+        }
+
+        Destroy(this.gameObject);
     }
 }

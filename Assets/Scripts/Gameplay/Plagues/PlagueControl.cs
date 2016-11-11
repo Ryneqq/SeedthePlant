@@ -4,14 +4,16 @@ using System.Collections;
 public class PlagueControl : MonoBehaviour {
 
     private float time = 0.0f;
-    private float startTime = 1.0f;
-    private float duration = 20.0f;
+    private float startTime;
+    private float duration;
     private float plagueTime;
     private BarControl Bar;
 
 	void Start () {
         Bar = gameObject.GetComponent<BarControl>();
         ClearPlagues();
+        startTime = Random.Range(10.0f, 15.0f);
+        duration = Random.Range(20.0f, 30.0f);
 	}
     public void Initialize(string plague)
     {
@@ -41,7 +43,7 @@ public class PlagueControl : MonoBehaviour {
 
     void Update()
     {
-        if (Variables.mode == "normal")
+        if (Variables.mode == "normal" && !Variables.pause)
         {
             MaintainPlague();
         }
@@ -59,14 +61,81 @@ public class PlagueControl : MonoBehaviour {
         else
         {
             time += Time.deltaTime;
-        }
-
-        if (time > startTime)
-        {
-            //losujemy plage
-            //Initialize("PW");
+            if (time > startTime)
+            {
+                RandomPlague();
+            }
         }
     }
+    private void RandomPlague()
+    {
+        startTime = Random.Range(10.0f, 20.0f);
+        duration = Random.Range(20.0f, 30.0f);
+        if (Variables.roundNumber < 5)
+        {
+            int plague = Random.Range(1, 5);
+            if (plague == 1)
+            {
+                Initialize("PG");
+                return;
+            }
+            else if (plague == 2)
+            {
+                Initialize("PW");
+                return;
+            }
+            else if (plague == 3)
+            {
+                Initialize("H");
+                return;
+            }
+            else if (plague == 4)
+            {
+                Initialize("Full");
+                return;
+            }
+        }
+        else if(Variables.roundNumber < 10)
+        {
+            int plague = Random.Range(1, 4);
+            if (plague == 1)
+            {
+                Initialize("PG");
+                Initialize("PW"); 
+                return;
+            }
+            else if (plague == 2)
+            {
+                Initialize("PG");
+                Initialize("H");
+                return;
+            }
+            else if (plague == 3)
+            {
+                Initialize("PG");
+                Initialize("Full");
+                return;
+            }
+        }
+        else
+        {
+            int plague = Random.Range(1, 3);
+            if (plague == 1)
+            {
+                Initialize("PG");
+                Initialize("PW");
+                Initialize("H");
+                return;
+            }
+            else if (plague == 2)
+            {
+                Initialize("PG");
+                Initialize("PW");
+                Initialize("Full");
+                return;
+            }
+        }
+}
     public void ClearPlagues()
     {
         Debug.Log("Plague Cleared");

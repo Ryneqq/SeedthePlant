@@ -10,11 +10,11 @@ public class WaterControl : MonoBehaviour {
     }
     void Update()
     {
-        if (isPressed && Variables.mode == "photo")
+        if (isPressed && (Variables.mode == "photo" || Variables.pause))
         {
             isPressed = false;
         }
-        if (isPressed)
+        if (isPressed && !Variables.pause)
             WhilePressed();
 
     }

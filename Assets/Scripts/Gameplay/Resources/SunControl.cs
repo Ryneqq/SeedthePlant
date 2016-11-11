@@ -25,5 +25,10 @@ public class SunControl : MonoBehaviour {
                 --Variables.SunCounter;
             }
         }
+        else //pauza wlaczona
+        {
+            Destroy(this.gameObject); 
+            --Variables.SunCounter;
+        }
     }
 }

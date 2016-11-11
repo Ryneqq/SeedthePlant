@@ -42,7 +42,7 @@ public class BarControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Variables.mode == "normal")
+        if (Variables.mode == "normal" && !Variables.pause)
         {
             O2BarControl();
             CO2BarControl();
