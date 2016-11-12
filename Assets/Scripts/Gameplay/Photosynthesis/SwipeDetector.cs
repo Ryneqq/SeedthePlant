@@ -36,5 +36,9 @@ public class SwipeDetector : MonoBehaviour
         {
             gameObject.GetComponent<SeedControl>().ManageSeed(whichCollider);
         }
+        else
+        {
+            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.0f, 0.0f);
+        }
     }
 }

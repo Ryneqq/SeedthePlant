@@ -70,7 +70,10 @@ public class BarControl : MonoBehaviour {
         if (O2Value >= 1.0f)
             O2Value = 1.0f;
         if (O2Value <= 0.0f)
+        {
             O2Value = 0.0f;
+            GetComponent<GameOver>().almostOver = true;
+        }
         O2Bar.GetComponent<Image> ().transform.localScale = new Vector3(O2Value, 1, 1);
 
         if (!O2photo && O2Value >= lTreshold && O2Value <= tTreshold)
@@ -107,7 +110,10 @@ public class BarControl : MonoBehaviour {
         if (CO2Value >= 1.0f)
             CO2Value = 1.0f;
         if (CO2Value <= 0.0f)
+        {
             CO2Value = 0.0f;
+            GetComponent<GameOver>().almostOver = true;
+        }
         CO2Bar.GetComponent<Image>().transform.localScale = new Vector3(CO2Value, 1, 1);
 
         if (!CO2photo && CO2Value >= lTreshold && CO2Value <= tTreshold)
@@ -144,7 +150,10 @@ public class BarControl : MonoBehaviour {
         if (SunValue >= 1.0f)
             SunValue = 1.0f;
         if (SunValue <= 0.0f)
+        {
             SunValue = 0.0f;
+            GetComponent<GameOver>().almostOver = true;
+        }
         SunBar.GetComponent<Image>().transform.localScale = new Vector3(SunValue, 1, 1);
 
         if (!Sunphoto && SunValue >= lTreshold && SunValue <= tTreshold)
@@ -183,7 +192,10 @@ public class BarControl : MonoBehaviour {
         if (WaterValue >= 1.0f)
             WaterValue = 1.0f;
         if (WaterValue <= 0.0f)
+        {
             WaterValue = 0.0f;
+            GetComponent<GameOver>().almostOver = true;
+        }
         WaterBar.GetComponent<Image>().transform.localScale = new Vector3(WaterValue, 1, 1);
 
         if (!Waterphoto && WaterValue >= lTreshold && WaterValue <= tTreshold)
@@ -221,10 +233,18 @@ public class BarControl : MonoBehaviour {
         WaterValue = 0.0f;
         WaterBar.GetComponent<Image>().transform.localScale = new Vector3(WaterValue, 1, 1);
     }
+    public bool ReValues() //return information bout that Values are higher than zero or not
+    {
+        if (O2Value > 0.0f && CO2Value > 0.0f && SunValue > 0.0f && WaterValue > 0.0f)
+        {
+            return true;
+        }
+        return false;
+    }
     public void SetDifferential()
     {
         // różnica o ktora pomniejszaja sie bary co klatke - zalezy od zmiennej roundNumber 
-        //difference = dif * (1 + (Variables.roundNumber - 1) / Variables.roundNumber);
-        difference = 0.0f;
+        difference = dif * (1 + (Variables.roundNumber - 1) / Variables.roundNumber);
+        //difference = 0.0f;
     }
 }
