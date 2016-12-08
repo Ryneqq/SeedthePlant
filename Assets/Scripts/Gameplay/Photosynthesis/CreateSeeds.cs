@@ -11,12 +11,14 @@ using UnityEngine.UI;
 /// </CreateSeeds>
 public class CreateSeeds : MonoBehaviour {
     //creating seeds
-    private Image temp;
+    //private Image temp;
     public Image Ancient;
     public Image Normal;
     public Image Rotten;
     public Image Plagued;
     public Canvas photoCanvas;
+
+    public string seedTag;
 
     //=== probability ===
     private float probAncient = 1.0f; //ancient
@@ -77,6 +79,7 @@ public class CreateSeeds : MonoBehaviour {
     // funkcja spawnuje seedy na podstawie otrzymanego stringa
     private void CreateSeed(string Seed)
     {
+        Image temp;
         if (Seed == "ancient")
         {
             temp = (Image)Instantiate(Ancient, new Vector2(0.0f,0.0f), Quaternion.identity);
@@ -92,11 +95,12 @@ public class CreateSeeds : MonoBehaviour {
             temp = (Image)Instantiate(Rotten, new Vector2(0.0f, 0.0f), Quaternion.identity);
             temp.transform.SetParent(photoCanvas.transform, false);
         }
-        else if (Seed == "normal")
+        else// if (Seed == "normal")
         {
             temp = (Image)Instantiate(Normal, new Vector2(0.0f, 0.0f), Quaternion.identity);
             temp.transform.SetParent(photoCanvas.transform, false);
         }
+        seedTag = temp.tag;
         ++noSeeds;
     }
     //funkcja ktora zmienia prywatnego boola - dla bezpieczenstwa.

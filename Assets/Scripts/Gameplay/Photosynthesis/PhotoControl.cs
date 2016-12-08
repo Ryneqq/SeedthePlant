@@ -43,43 +43,30 @@ public class PhotoControl : MonoBehaviour {
 	}
     private void StartPhoto()
     {
-        // * * * * * Usuniecie wszystkich obiektow z kolizja * * * * *
-        // niezbedne do zaczecia fotosyntezy, poniewaz badamy kolizje nasionka a gazy tez z niewiadomych powodow koliduja z Takerem i Destroyerm
-        // zreszta to rozwiazanie tez usprawnia dzialanie programu bo nie musi liczyc sil dzialajacych na molekuly
-        GameObject[] O2list = GameObject.FindGameObjectsWithTag("O2"); // tworze liste obiektow z takim tagiem
-        foreach (GameObject O2 in O2list) // w petli dostaje sie do kadego elementu z listy
-        {
-            Destroy(O2.gameObject); // i go niszcze
-        }
-        GameObject[] CO2list = GameObject.FindGameObjectsWithTag("CO2");
-        foreach (GameObject CO2 in CO2list)
-        {
-            Destroy(CO2.gameObject);
-        }
-        GameObject[] PGlist = GameObject.FindGameObjectsWithTag("PG");
-        foreach (GameObject posionedGas in PGlist)
-        {
-            Destroy(posionedGas.gameObject);
-        }
-        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+        DestroyResources();
         gameObject.GetComponent<PlagueControl>().ClearPlagues(); // czyscimy plagi, zeby sie nie okazalo ze po zakonczeniu fotosyntezy pojawia sie plaga.
         photoCanvas.GetComponent<NumbersControl>().SetNumber(); // aktualizujemy wartosci seedow
+        TurnCanvas("off");
         photoCanvas.gameObject.SetActive(true);
         reactionTime = 10.0f; // ustawiam wartosc startowa kazdej photosyntezy
         time = reactionTime;
     }
     // funkcja konczy fotosynteze
     public void EndPhoto()
-    { 
-        photoCanvas.gameObject.SetActive(false);
+    {
         Variables.mode = "normal";
+        // === zniszcz nasionko ===
+        Destroy(GameObject.FindGameObjectWithTag(GetComponent<CreateSeeds>().seedTag).gameObject);
+        GetComponent<CreateSeeds>().isDestroyed();
+        // ========================
+        photoCanvas.gameObject.SetActive(false);
+        TurnCanvas("on");
         triggered = false;
         reactionFailed = false;
         Variables.O2Counter = 0;
         Variables.CO2Counter = 0;
         Variables.pGasCounter = 0;
         ++Variables.roundNumber; // numer rundy
-        Debug.Log(Variables.full);
     }
     // funkcja obsluguje bar odliczajacy dany czas na reakcje gracza
     private void PhotoBarControl()
@@ -101,5 +88,43 @@ public class PhotoControl : MonoBehaviour {
     {
         reactionTime = reactionTime * delta;
         time = reactionTime;
+    }
+    public void DestroyResources()
+    {
+        // * * * * * Usuniecie wszystkich obiektow * * * * *
+        GameObject[] O2list = GameObject.FindGameObjectsWithTag("O2"); // tworze liste obiektow z takim tagiem
+        foreach (GameObject O2 in O2list) // w petli dostaje sie do kadego elementu z listy
+        {
+            Destroy(O2.gameObject); // i go niszcze
+        }
+        GameObject[] CO2list = GameObject.FindGameObjectsWithTag("CO2");
+        foreach (GameObject CO2 in CO2list)
+        {
+            Destroy(CO2.gameObject);
+        }
+        GameObject[] PGlist = GameObject.FindGameObjectsWithTag("PG");
+        foreach (GameObject posionedGas in PGlist)
+        {
+            Destroy(posionedGas.gameObject);
+        }
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    }
+    public void TurnCanvas(string what)
+    {
+        GameObject[] Canvaslist = GameObject.FindGameObjectsWithTag("GCanvas");
+        if(what == "on")
+        {
+           foreach (GameObject canv in Canvaslist)
+           {
+                canv.GetComponent<Canvas>().enabled = true;
+           }
+        }
+        else if(what == "off")
+        {
+            foreach (GameObject canv in Canvaslist)
+            {
+                canv.GetComponent<Canvas>().enabled = false;
+            }
+        }
     }
 }
