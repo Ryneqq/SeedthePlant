@@ -38,5 +38,4 @@ public class Variables : MonoBehaviour {
     //currency
     public static int noNormal;
     public static int noAncient;
-
 }

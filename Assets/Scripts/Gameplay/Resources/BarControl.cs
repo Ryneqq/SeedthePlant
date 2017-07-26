@@ -244,7 +244,7 @@ public class BarControl : MonoBehaviour {
     public void SetDifferential()
     {
         // różnica o ktora pomniejszaja sie bary co klatke - zalezy od zmiennej roundNumber 
-        //difference = dif * (1 + (Variables.roundNumber - 1) / Variables.roundNumber);
-        difference = 0.0f;
+        difference = dif * (1 + (Variables.roundNumber - 1) / Variables.roundNumber);
+        //difference = 0.0f;
     }
 }

@@ -7,6 +7,7 @@ public class MContol : MonoBehaviour {
     private float time = 0.0f;
     private float V,Fx, Fy, RFx, T;
     private BarControl Bar;
+    private Button TurnOn;
 
     public void Clicked() //obiekt został naklikniety
     {
@@ -59,10 +60,13 @@ public class MContol : MonoBehaviour {
     void Start()
     {
         Bar = GameObject.Find("Main Camera").GetComponent<BarControl>();
+        TurnOn = GetComponent<Button>();
     }
 
     void Update()
     {
+        if (!Variables.pause && TurnOn.enabled == false)
+            TurnOn.enabled = true;
         if (!Variables.pause)
         {
             time += Time.deltaTime;
@@ -77,7 +81,8 @@ public class MContol : MonoBehaviour {
         }
         else
         {
-            DestroyGases();
+            //DestroyGases();
+            TurnOn.enabled = false;
         }
     }
     

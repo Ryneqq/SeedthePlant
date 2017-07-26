@@ -67,6 +67,7 @@ public class PhotoControl : MonoBehaviour {
         Variables.CO2Counter = 0;
         Variables.pGasCounter = 0;
         ++Variables.roundNumber; // numer rundy
+        // uruchom funkcje do resetowania superumiejetnosci
     }
     // funkcja obsluguje bar odliczajacy dany czas na reakcje gracza
     private void PhotoBarControl()

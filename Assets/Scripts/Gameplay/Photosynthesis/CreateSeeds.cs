@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </CreateSeeds>
 public class CreateSeeds : MonoBehaviour {
     //creating seeds
-    //private Image temp;
+    private Image temp;
     public Image Ancient;
     public Image Normal;
     public Image Rotten;
@@ -79,7 +79,6 @@ public class CreateSeeds : MonoBehaviour {
     // funkcja spawnuje seedy na podstawie otrzymanego stringa
     private void CreateSeed(string Seed)
     {
-        Image temp;
         if (Seed == "ancient")
         {
             temp = (Image)Instantiate(Ancient, new Vector2(0.0f,0.0f), Quaternion.identity);

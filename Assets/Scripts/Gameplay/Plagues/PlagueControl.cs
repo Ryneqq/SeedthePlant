@@ -8,8 +8,10 @@ public class PlagueControl : MonoBehaviour {
     private float duration;
     private float plagueTime;
     private BarControl Bar;
+    private LogControl debugLog;
 
 	void Start () {
+        debugLog = Camera.main.GetComponent<LogControl>();
         Bar = gameObject.GetComponent<BarControl>();
         ClearPlagues();
         startTime = Random.Range(10.0f, 15.0f);
@@ -21,23 +23,27 @@ public class PlagueControl : MonoBehaviour {
         if (plague == "PG")
         {
             Variables.poisonedGas = true; //cialo plagi w skrypcie MControl
+            debugLog.Set("Plague: Poisoned Gas");
         }
         // === Poisoned Water ===
         if (plague == "PW")
         {
             Variables.poisonedWater = true; // skrypt WaterButton
+            debugLog.Set("Plague: Poisoned Water");
         }
         // === Hunger ===
         if (plague == "H")
         {
             Variables.hunger = true;
             Bar.difference = Bar.difference * 2;
+            debugLog.Set("Plague: Hunger");
         }
         // === Fullness ===
         if (plague == "Full")
         {
             Variables.full = true;
             Bar.difference = Bar.difference * (-2);
+            debugLog.Set("Plague: Fullnes");
         }
     }
 
@@ -146,6 +152,7 @@ public class PlagueControl : MonoBehaviour {
         time = 0.0f;
         plagueTime = 0.0f;
         Bar.SetDifferential();
+        debugLog.Set("Plague: none");
     }
 
 }
